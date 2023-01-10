@@ -30,5 +30,6 @@ module.exports = {
     ],
     'prettier/prettier': 'error',
     'no-use-before-define': 'off',
+    'no-unused-vars': 'warn',
   },
 }
