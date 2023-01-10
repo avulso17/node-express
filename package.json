@@ -1,8 +1,12 @@
 {
   "name": "node-alura",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/server.js",
   "license": "MIT",
+  "author": "Felipe Mateus",
+  "scripts": {
+    "dev": "nodemon server.js"
+  },
   "devDependencies": {
     "eslint": "^8.0.1",
     "eslint-config-prettier": "^8.6.0",
