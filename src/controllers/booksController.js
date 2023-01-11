@@ -3,23 +3,28 @@ import Books from '../models/Book.js'
 // This is the controller for the books routes
 class BookController {
   static getBooks(_req, res) {
-    Books.find((_err, books) => {
-      return res.status(200).json(books)
-    })
+    Books.find()
+      // This is the magic line that will populate the author field
+      .populate('author')
+      .exec((_err, books) => {
+        return res.status(200).json(books)
+      })
   }
 
   static getBookById(req, res) {
     const { id } = req.params
 
-    Books.findById(id, (err, book) => {
-      if (err) {
-        return res
-          .status(400)
-          .send({ message: `Error getting book - ${err.message}` })
-      } else {
-        return res.status(200).json(book)
-      }
-    })
+    Books.findById(id)
+      .populate('author', 'name')
+      .exec((err, book) => {
+        if (err) {
+          return res
+            .status(400)
+            .send({ message: `Error getting book - ${err.message}` })
+        } else {
+          return res.status(200).json(book)
+        }
+      })
   }
 
   static addBook(req, res) {
