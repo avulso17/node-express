@@ -7,6 +7,7 @@ const authorSchema = new mongoose.Schema(
     nationality: { type: String },
   },
   {
+    // This will remove the __v field from the document
     versionKey: false,
   }
 )
