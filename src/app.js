@@ -1,6 +1,5 @@
 import express from 'express'
 import database from './config/databaseConnect.js'
-import Books from './models/Book.js'
 import routes from './routes/index.js'
 
 // Connect to database
@@ -11,29 +10,13 @@ database.once('open', () => {
   console.log('database connected!')
 })
 
+// Create the express app instance
 const app = express()
 
+// json middleware to parse the request body
 app.use(express.json())
 
+// Add the routes to the app
 routes(app)
-
-// TODO: move this to a controller
-app.put('/books/:id', (req, res) => {
-  const index = findBook(req.params.id)
-  Books[index].title = req.body.title
-  res.json(Books)
-})
-
-// TODO: move this to a controller
-app.delete('/books/:id', (req, res) => {
-  const { id } = req.params
-  const index = findBook(id)
-  Books.splice(index, 1)
-  res.send(`Book ${id} deleted successfully`)
-})
-
-function findBook(id) {
-  return Books.findIndex((item) => item.id === parseInt(id))
-}
 
 export default app
