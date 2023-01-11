@@ -17,6 +17,7 @@ class BookController {
 
     Books.findById(id)
       .populate('author', 'name')
+      .populate('editor', 'name')
       .exec((err, book) => {
         if (err) {
           return res
@@ -28,14 +29,14 @@ class BookController {
       })
   }
 
-  static getBookByEditor(req, res) {
-    const { editor } = req.query
+  static getBookByTitle(req, res) {
+    const title = req.query.title
 
-    Books.find({ editor }, {}, (err, books) => {
+    Books.find({ title }, {}, (err, books) => {
       if (err) {
-        return res
-          .status(400)
-          .send({ message: `Error getting books - ${err.message}` })
+        return res.status(400).send({
+          message: `Error getting ${title} book - ${err.message}`,
+        })
       } else {
         return res.status(200).json(books)
       }
