@@ -7,7 +7,11 @@ const bookSchema = new mongoose.Schema({
     ref: 'authors',
     required: true,
   },
-  editor: { type: String, required: true },
+  editor: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'editors',
+    required: true,
+  },
   numberPages: { type: Number },
 })
 

@@ -1,13 +1,14 @@
 import express from 'express'
-import BookController from '../controllers/booksController.js'
+import Controller from '../controllers/booksController.js'
 
 const router = express.Router()
 
 router
-  .get('/books', BookController.getBooks)
-  .get('/books/:id', BookController.getBookById)
-  .post('/books', BookController.addBook)
-  .put('/books/:id', BookController.updateBook)
-  .delete('/books/:id', BookController.deleteBook)
+  .get('/books', Controller.getBooks)
+  .get('/books/search', Controller.getBookByEditor)
+  .get('/books/:id', Controller.getBookById)
+  .post('/books', Controller.addBook)
+  .put('/books/:id', Controller.updateBook)
+  .delete('/books/:id', Controller.deleteBook)
 
 export default router

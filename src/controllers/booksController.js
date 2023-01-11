@@ -6,6 +6,7 @@ class BookController {
     Books.find()
       // This is the magic line that will populate the author field
       .populate('author')
+      .populate('editor')
       .exec((_err, books) => {
         return res.status(200).json(books)
       })
@@ -25,6 +26,20 @@ class BookController {
           return res.status(200).json(book)
         }
       })
+  }
+
+  static getBookByEditor(req, res) {
+    const { editor } = req.query
+
+    Books.find({ editor }, {}, (err, books) => {
+      if (err) {
+        return res
+          .status(400)
+          .send({ message: `Error getting books - ${err.message}` })
+      } else {
+        return res.status(200).json(books)
+      }
+    })
   }
 
   static addBook(req, res) {
