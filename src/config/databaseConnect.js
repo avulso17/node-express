@@ -1,7 +1,10 @@
 import mongoose from 'mongoose'
+import * as dotenv from 'dotenv'
+
+dotenv.config()
 
 mongoose.connect(
-  'mongodb+srv://poseidon:0jkuEv8Lshem3nGA@node-express.s33wyzr.mongodb.net/poseidon-database'
+  `mongodb+srv://poseidon:${process.env.DATABASE_PWD}@node-express.s33wyzr.mongodb.net/${process.env.DATABASE_NAME}`
 )
 
 const database = mongoose.connection
