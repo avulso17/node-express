@@ -1,12 +1,16 @@
 {
   "name": "node-alura",
   "version": "1.0.0",
-  "main": "server.js",
+  "main": "index.js",
   "type": "module",
   "license": "MIT",
   "author": "Felipe Mateus",
+  "engines": {
+    "node": "16.x"
+  },
   "scripts": {
-    "dev": "nodemon server.js"
+    "dev": "nodemon index.js",
+    "start": "node index.js"
   },
   "dependencies": {
     "express": "4.17.3",
