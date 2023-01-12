@@ -9,8 +9,8 @@
     "node": "16.x"
   },
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js"
+    "start": "node index",
+    "dev": "nodemon index"
   },
   "dependencies": {
     "dotenv": "^16.0.3",
