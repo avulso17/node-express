@@ -1,28 +1,32 @@
 import Authors from '../models/Author.js'
 
 // This is the controller for the authors routes
-class AuthorController {
-  static getAuthors(_req, res) {
+export default {
+  getAuthors(_req, res) {
     Authors.find((_err, author) => {
       return res.status(200).json(author)
     })
-  }
+  },
 
-  static getAuthorById(req, res) {
-    const { id } = req.params
+  async getAuthorById(req, res) {
+    try {
+      const { id } = req.params
 
-    Authors.findById(id, (err, author) => {
-      if (err) {
-        return res
-          .status(400)
-          .send({ message: `Error getting author - ${err.message}` })
-      } else {
-        return res.status(200).json(author)
+      const author = await Authors.findById(id)
+
+      if (!author) {
+        return res.status(404).send({ message: 'Author not found' })
       }
-    })
-  }
 
-  static addAuthor(req, res) {
+      return res.status(200).json(author)
+    } catch (err) {
+      return res
+        .status(500)
+        .send({ message: `Error getting author - ${err.message}` })
+    }
+  },
+
+  addAuthor(req, res) {
     const author = new Authors(req.body)
 
     author.save((err) => {
@@ -34,9 +38,9 @@ class AuthorController {
         return res.status(201).send('Author added successfully')
       }
     })
-  }
+  },
 
-  static updateAuthor(req, res) {
+  updateAuthor(req, res) {
     const { id } = req.params
 
     Authors.findByIdAndUpdate(id, { $set: req.body }, (err) => {
@@ -48,9 +52,9 @@ class AuthorController {
         return res.status(200).send({ message: 'Author updated successfully!' })
       }
     })
-  }
+  },
 
-  static deleteAuthor(req, res) {
+  deleteAuthor(req, res) {
     const { id } = req.params
 
     Authors.findByIdAndDelete(id, (err) => {
@@ -62,7 +66,5 @@ class AuthorController {
         return res.status(203).send({ message: 'Author deleted successfully!' })
       }
     })
-  }
+  },
 }
-
-export default AuthorController

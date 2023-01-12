@@ -1,13 +1,14 @@
 import express from 'express'
-import AuthorController from '../controllers/authorController.js'
+import Controller from '../controllers/authorController.js'
+import objectIdValidator from '../middlewares/objectIdValidator.js'
 
 const router = express.Router()
 
 router
-  .get('/author', AuthorController.getAuthors)
-  .get('/author/:id', AuthorController.getAuthorById)
-  .post('/author', AuthorController.addAuthor)
-  .put('/author/:id', AuthorController.updateAuthor)
-  .delete('/author/:id', AuthorController.deleteAuthor)
+  .get('/author', Controller.getAuthors)
+  .get('/author/:id', objectIdValidator, Controller.getAuthorById)
+  .post('/author', Controller.addAuthor)
+  .put('/author/:id', objectIdValidator, Controller.updateAuthor)
+  .delete('/author/:id', objectIdValidator, Controller.deleteAuthor)
 
 export default router
